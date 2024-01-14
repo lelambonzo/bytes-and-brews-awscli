@@ -1,0 +1,25 @@
+### COMMANDS ###
+
+#: Configure AWS CLI
+aws configure
+
+#: Create a VPC
+aws ec2 create-vpc --cidr-block 10.0.0.0/16
+
+#: Create Subnet
+aws ec2 create-subnet --vpc-id vpc-id --cidr-block 10.0.0.0/24
+
+#: Create Internet Gateway
+aws ec2 create-internet-gateway
+
+#: Attach Internet Gateway to VPC
+aws ec2 attach-internet-gateway --internet-gateway-id gateway-id --vpc-id vpc-id
+
+#: Create Route Table
+aws ec2 create-route-table --vpc-id vpc-id
+
+#: Add Route to Route Table
+aws ec2 create-route --route-table-id route-table-id --destination-cidr-block 0.0.0.0/0 --gateway-id gateway-id
+
+#: Launch EC2 Instance
+aws ec2 run-instances --image-id ami-id --subnet-id subnet-id --instance-type t2.micro --key-name your-key-pair-name

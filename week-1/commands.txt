@@ -1,1 +1,16 @@
-#: COMMANDS
+### COMMANDS ###
+
+#: Install and Configure AWS CLI
+aws configure
+
+#: Create an S3 Bucket for Your Website
+aws s3api create-bucket --bucket <your-bucket-name> --region <your-preferred-region> --create-bucket-configuration LocationConstraint=<your-preferred-region>
+
+#: Enable Website Hosting on Your Bucket
+aws s3 website s3://<your-bucket-name> --index-document index.html --error-document error.html
+
+#: Upload Your Website Content to the S3 Bucket
+aws s3 sync <local-folder-path> s3://<your-bucket-name>
+
+#: Set Bucket Policy for Public Access
+aws s3api put-bucket-policy --bucket <your-bucket-name> --policy file://bucket-policy.json

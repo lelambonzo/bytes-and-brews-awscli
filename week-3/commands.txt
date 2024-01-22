@@ -1,3 +1,33 @@
 ### COMMANDS ###
 
-#: 
+#: Install AWS CLI
+pip install awscli
+
+#: Configure AWS CLI
+aws configure
+
+#: Create a custom parameter group
+aws rds create-db-parameter-group \
+  --db-parameter-group-name custom-parameters \
+  --parameter-group-family mysql8.0 \
+  --description "Custom parameters for MySQL 8.0"
+
+#: Launch an Amazon RDS instance
+aws rds create-db-instance \
+  --db-instance-identifier my-db-instance \
+  --engine mysql \
+  --db-instance-class db.t3.micro \
+  --allocated-storage 20 \
+  --master-username admin \
+  --master-user-password adminpassword \
+  --db-name mydatabase \
+  --vpc-security-group-ids sg-0123456789abcdef0 \
+  --db-subnet-group-name mydbsubnetgroup \
+  --no-publicly-accessible \
+  --db-parameter-group-name custom-parameters
+
+#: Enable automatic backups
+aws rds modify-db-instance --db-instance-identifier my-db-instance --backup-retention-period 7
+
+#: Check backup status
+aws rds describe-db-instance-automated-backups --db-instance-identifier my-db-instance

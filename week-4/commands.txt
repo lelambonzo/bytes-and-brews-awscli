@@ -1,0 +1,13 @@
+### COMMANDS ###
+
+#: Create an AWS Budget
+aws budgets create-budget --account-id YOUR_ACCOUNT_ID --budget-name MonthlyBudget --budget-limit amount=500,unit=USD --time-unit MONTHLY
+
+#: Set up SNS Topic
+aws sns create-topic --name BudgetNotifications
+
+#: Subscribe to the SNS Topic
+aws sns subscribe --topic-arn YOUR_SNS_TOPIC_ARN --protocol email --notification-endpoint YOUR_EMAIL_ADDRESS
+
+#: Configure Budget Notifications
+aws budgets create-notification --account-id YOUR_ACCOUNT_ID --budget-name MonthlyBudget --notification "Threshold" "Actual" "80" YOUR_SNS_TOPIC_ARN
